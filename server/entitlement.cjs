@@ -1,4 +1,4 @@
-const { checkEntitlement } = require('./seeder_api');
+const { checkEntitlement } = require('./seeder_api.cjs');
 
 async function entitlementMiddleware(req, res, next) {
   const email = req.user?.email;

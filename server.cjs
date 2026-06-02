@@ -8,10 +8,10 @@ const {
   checkEntitlement,
   listProducts,
   listSubscriptions,
-} = require('./server/seeder_api');
+} = require('./server/seeder_api.cjs');
 
-const { handleSeederWebhook } = require('./server/seeder_webhook');
-const { entitlementMiddleware } = require('./server/entitlement');
+const { handleSeederWebhook } = require('./server/seeder_webhook.cjs');
+const { entitlementMiddleware } = require('./server/entitlement.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;

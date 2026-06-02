@@ -1,7 +1,7 @@
 function getAPIBase() {
   return process.env.SEEDER_PAY_ENV === 'production'
-    ? 'http://127.0.0.1:8077'
-    : 'http://127.0.0.1:8076';
+    ? 'https://api.ligris.ai'
+    : 'https://sandbox-api.ligris.ai';
 }
 
 async function createCheckoutSession(productId, planId, buyerId, buyerEmail, buyerName) {

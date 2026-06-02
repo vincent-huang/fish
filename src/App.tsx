@@ -3,12 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Atmosphere from './components/Atmosphere';
 import Sea from './components/Sea';
 import FishScene from './components/FishScene';
+import PricingPage from './pages/PricingPage';
+import PaymentRequired from './pages/PaymentRequired';
+import PaymentSuccess from './pages/PaymentSuccess';
+import PaymentFailed from './pages/PaymentFailed';
+import SubscriptionManagement from './pages/SubscriptionManagement';
 import { motion } from 'motion/react';
 
-export default function App() {
+function HomePage() {
   return (
     <main className="relative w-full h-screen overflow-hidden bg-black font-sans selection:bg-orange-500/30">
       {/* Background Layers */}
@@ -38,5 +44,20 @@ export default function App() {
       {/* Viewport Vignette */}
       <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_200px_rgba(0,0,0,0.5)]" />
     </main>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/payment-required" element={<PaymentRequired />} />
+        <Route path="/payment/success" element={<PaymentSuccess />} />
+        <Route path="/payment/failed" element={<PaymentFailed />} />
+        <Route path="/account/subscription" element={<SubscriptionManagement />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

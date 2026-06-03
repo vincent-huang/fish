@@ -19,6 +19,7 @@ interface Product {
 export default function PricingPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [checkingOut, setCheckingOut] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/products/plans")
@@ -29,14 +30,21 @@ export default function PricingPage() {
   }, []);
 
   const handleCheckout = async (productId: string, planId: string) => {
-    const res = await fetch("/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ product_id: productId, plan_id: planId }),
-    });
-    const data = await res.json();
-    if (data.checkout_url) {
-      window.location.href = data.checkout_url;
+    if (checkingOut) return;
+    setCheckingOut(planId);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product_id: productId, plan_id: planId }),
+      });
+      const data = await res.json();
+      if (data.checkout_url) {
+        window.location.href = data.checkout_url;
+      }
+    } catch (err) {
+      console.error(err);
+      setCheckingOut(null);
     }
   };
 
@@ -63,9 +71,14 @@ export default function PricingPage() {
                 <button
                   key={plan.plan_id}
                   onClick={() => handleCheckout(p.product_id, plan.plan_id)}
-                  className="w-full mt-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-400 text-white font-semibold transition"
+                  disabled={checkingOut !== null}
+                  className="w-full mt-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-400 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold transition"
                 >
-                  {plan.trial_days ? `免費試用 ${plan.trial_days} 天` : "立即訂閱"}
+                  {checkingOut === plan.plan_id
+                    ? "處理中..."
+                    : plan.trial_days
+                      ? `免費試用 ${plan.trial_days} 天`
+                      : "立即訂閱"}
                 </button>
               ))}
             </div>

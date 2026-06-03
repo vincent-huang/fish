@@ -1,14 +1,14 @@
 {
   "products": [
     {
-      "product_id": "prod_01KT400E58ZXNXW1KFC5GHXYKX",
+      "product_id": "prod_01KT4030QQDGEYYXP6E3KS2TBD",
       "name": "ABC Pro 版",
       "price": 29900,
       "currency": "twd",
       "entitlement_keys": ["ABC_PRO", "PRO_REPORTS", "PRO_API", "PRO_TEAM", "PRO_SUPPORT"],
       "plans": [
         {
-          "plan_id": "spl_01KT401452KE1FMCR1EDKQEJTD",
+          "plan_id": "spl_01KT60H459XY0TQEPX69CP6J6S",
           "name": "Monthly Subscription",
           "purchase_type": "subscription",
           "interval": "month",
@@ -17,5 +17,5 @@
       ]
     }
   ],
-  "environment": "sandbox"
+  "environment": "production"
 }
